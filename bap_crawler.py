@@ -1,5 +1,6 @@
 # NSU 학식 크롤링 코드 #
 import requests
+import json
 
 def NSU_MEAL():
     if NSU_MSG == "1층":
@@ -17,8 +18,24 @@ def NSU_MEAL():
 
     mealList = mealResponse["body"]["list"][0]["properties"]["food_list"][0]
 
+    mealList['//월요일//'] = mealList['field1']
+    mealList['//화요일//'] = mealList['field2']
+    mealList['//수요일//'] = mealList['field3']
+    mealList['//목요일//'] = mealList['field4']
+    mealList['//금요일//'] = mealList['field5']
+    del(mealList['corner'])
+    del(mealList['field1'])
+    del(mealList['field2'])
+    del(mealList['field3'])
+    del(mealList['field4'])
+    del(mealList['field5'])
+
     for mealData in mealList.items():
-        print(f"Field : {mealData[0]}\n{mealData[1]}")
+        print(f"{mealData[0]}\n{mealData[1]}")
+    
+    file_path = "tmp1.json"
+    with open(file_path, 'w') as outfile:
+        json.dump(mealList, outfile, indent=4)
 
 NSU_MSG = input("위치를 입력하세요: ")
 NSU_MEAL()
