@@ -5,11 +5,11 @@ def getReplyMessage():
     strResult = ""
     if "남샤" in message:
         if "1층" in message:
-            strResult = messageNSUMeal("465")
+            strResult = messageNSUMeal("465", "0")
         elif "2층" in message:
-            strResult = messageNSUMeal("466")
+            strResult = messageNSUMeal("466", "0")
         elif "3층" in message:
-            strResult = messageNSUMeal("467")
+            strResult = messageNSUMeal("467", "0")
         elif "카페" in message:
             if "조식" in message:
                 strResult = messageNSUMeal("468", "0")
