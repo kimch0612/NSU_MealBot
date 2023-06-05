@@ -5,4 +5,5 @@
 #### [남서울대학교 홈페이지](https://nsu.ac.kr/?m1=page%25&menu_id=483%25)의 백엔드 서버에서 직접 정보를 불러와 사용자에게 보여줍니다.
 
 ## Example
-![image](https://github.com/kimch0612/lezhin_comics_crawler/assets/10193967/4ead4b7f-fa47-4b1c-a32b-67d47a99ce7a)
+![image](https://github.com/kimch0612/NSU_MealBot/assets/10193967/3ad014b9-f100-4f72-8435-c3e95872c393)
+![image](https://github.com/kimch0612/NSU_MealBot/assets/10193967/3d4f60c3-1126-43f8-8d11-75ff1a1f53b3)
