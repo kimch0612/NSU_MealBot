@@ -8,22 +8,32 @@ def getReplyMessage():
         strResult = messageNSUMeal()
 def messageNSUMeal():
     strMessage = ""
+    MealList0 = []
+    MealList1 = []
+    MealList2 = []
+
+    day = datetime.date.today().weekday()
     strUrl = "https://nsu.ac.kr/api/user/board/getBoardContentSummaryList"
-    mealResponse = requests.post(strUrl, headers={'Content-Type': 'application/x-www-form-urlencoded'}, data="boardIdList=%d&includeProperties=1&parentBoardContentId=-1&isAvailable=1&isPrivate=0&isAlwaysOnTop=0&isDeleted=0&orderByCode=4" % int(NSU_BAP)).json()
-    mealResponse = dict(mealResponse)
-    mealDate = mealResponse["body"]["list"][0]["title"]
-    if food_list == 0:
-        mealList = mealResponse["body"]["list"][0]["properties"]["food_list"][0]
-    elif food_list == 1:
-        mealList = mealResponse["body"]["list"][0]["properties"]["food_list"][1]
+    bokji_data = "boardIdList=466&includeProperties=1&parentBoardContentId=-1&isAvailable=1&isPrivate=0&isAlwaysOnTop=0&isDeleted=0&orderByCode=4"
+    cafe_data = "boardIdList=468&includeProperties=1&parentBoardContentId=-1&isAvailable=1&isPrivate=0&isAlwaysOnTop=0&isDeleted=0&orderByCode=4"
 
-    mealList['// 월요일 //'], mealList['// 화요일 //'], mealList['// 수요일 //'], mealList['// 목요일 //'], mealList['// 금요일 //'], = mealList['field1'], mealList['field2'], mealList['field3'], mealList['field4'], mealList['field5']
-    del(mealList['corner'], mealList['field1'], mealList['field2'], mealList['field3'], mealList['field4'], mealList['field5'])
-    day = datetime.today().weekday()
+    bokji_response = requests.post(strUrl, headers={'Content-Type': 'application/x-www-form-urlencoded'}, data=bokji_data).json()
+    bokji_response = dict(bokji_response)
+    mealDate = bokji_response["body"]["list"][0]["title"]
+    bokji_list = bokji_response["body"]["list"][0]["properties"]["food_list"][0]
+    for mealData in bokji_list.items():
+        MealList0.append((f"{mealData[1]}\n"))
 
-    for mealData in mealList.items():
-        strMessage += (f"{mealData[0]}\n{mealData[1]}\n")
-    strMessage = mealDate + "\n\n" + strMessage
+    cafe_response = requests.post(strUrl, headers={'Content-Type': 'application/x-www-form-urlencoded'}, data=cafe_data).json()
+    cafe_response = dict(cafe_response)
+    cafe0_list = cafe_response["body"]["list"][0]["properties"]["food_list"][0]
+    cafe1_list = cafe_response["body"]["list"][0]["properties"]["food_list"][1]
+    for mealData in cafe0_list.items():
+        MealList1.append((f"{mealData[1]}\n"))
+    for mealData in cafe1_list.items():
+        MealList2.append((f"{mealData[1]}\n"))
+
+    strMessage = mealDate + " 식단표" + "\n\n" + ">> 천원의 아침밥 <<\n" + MealList1[day].replace('\n', ', ') + "\n\n>> 오늘의 메뉴 <<\n" + MealList0[day].replace('\n', ', ') + "\n\n>> 멀베리 <<\n" + MealList2[day].replace('\n', ', ')
     return strMessage
 
 getReplyMessage()
