@@ -4,8 +4,9 @@ from datetime import datetime
 
 def getReplyMessage():
     strResult = ""
-    if "남샤" in message:
+    if "남샤 학식" in message:
         strResult = messageNSUMeal()
+        
 def messageNSUMeal():
     strMessage = ""
     MealList0 = []
@@ -30,10 +31,13 @@ def messageNSUMeal():
     cafe1_list = cafe_response["body"]["list"][0]["properties"]["food_list"][1]
     for mealData in cafe0_list.items():
         MealList1.append((f"{mealData[1]}\n"))
+
     for mealData in cafe1_list.items():
         MealList2.append((f"{mealData[1]}\n"))
 
-    strMessage = mealDate + " 식단표" + "\n\n" + ">> 천원의 아침밥 <<\n" + MealList1[day].replace('\n', ', ') + "\n\n>> 오늘의 메뉴 <<\n" + MealList0[day].replace('\n', ', ') + "\n\n>> 멀베리 <<\n" + MealList2[day].replace('\n', ', ')
+    strMessage = mealDate + " 식단표" + "\n\n" + ">> 천원의 아침밥 <<\n" + MealList1[day] + "\n\n>> 오늘의 메뉴 <<\n" + MealList0[day] + "\n\n>> 멀베리 <<\n" + MealList2[day]
+
+
     return strMessage
 
 getReplyMessage()
